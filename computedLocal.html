@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>h5+app缓存测试</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1, viewport-fit=cover"/>
+<script> (function () {var _53code=document.createElement("script");_53code.src = '//tb.53kf.com/code/code/32d89b3626c00144d71c0999a10e0001/1'; var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(_53code, s);})(); </script>
+</head>
+<body>
+L
+<input type="button" onclick="get()" value="获取缓存"/>
+<input type="button" onclick="remove()" value="清除缓存"/>
+
+<script type="text/javascript">
+/**
+ * @description: 计算缓存大小
+ * @param {function} 获取成功回调函数
+ */
+function caching(callback){
+	if (window.plus) {  
+		plusReady();  
+	}else {  
+		document.addEventListener('plusready', plusReady, false);  
+	}
+	
+	function plusReady(){
+		plus.cache.calculate( function ( size ) {
+			if (size == 0) {
+				fileSizeString = "0B";
+			} else if (size < 1024) {
+				fileSizeString = size + "B";
+			} else if (size < 1048576) {
+				fileSizeString = (size / 1024).toFixed(2) + "KB";
+			} else if (size < 1073741824) {
+				fileSizeString = (size / 1048576).toFixed(2) + "MB";
+			} else {
+				fileSizeString = (size / 1073741824).toFixed(2) + "GB";
+			}
+			
+			callback(fileSizeString);
+		});
+	}
+	
+}
+
+/**
+ * @description: 清除缓存
+ * @param {function} 清除成功回调函数
+ */
+function clearCaching(callback){
+	if (window.plus) {  
+		plusReady();  
+	}else {  
+		document.addEventListener('plusready', plusReady, false);  
+	}
+	
+	function plusReady(){
+		plus.cache.clear(function () {
+			callback();
+		});
+	}
+}
+
+function get(){
+	caching(function(data){
+		alert("缓存为"+data);
+	});
+}
+
+function remove(){
+	clearCaching(function(){
+		alert("缓存清除成功！");
+	});
+}
+</script>
+
+</body>
+</html>
