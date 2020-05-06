@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+
+			div {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			button {
+				padding: 10px 25px;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<button type="button" onclick="routerLink()">
+				53快服
+			</button>
+		</div>
+		<script type="text/javascript">
+			function routerLink() {
+				console.log("as");
+				var href = 'https://tb.53kf.com/code/client/4e239d9cc61fafa0ebab47fbb242a0828/1';
+				var a = document.createElement('a');
+				a.setAttribute('href', href);
+				a.setAttribute('target', '_blank');
+				a.setAttribute('id', 'startTelMedicine');
+				// 防止反复添加
+				if (document.getElementById('startTelMedicine')) {
+					document.body.removeChild(document.getElementById('startTelMedicine'));
+				}
+				document.body.appendChild(a);
+				a.click()
+			}
+		</script>
+	</body>
+</html>

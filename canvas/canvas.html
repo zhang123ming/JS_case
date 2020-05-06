@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<img id="avatar">
+	<script>
+		drawAndShareImage();
+		function drawAndShareImage() {
+			var canvas = document.createElement("canvas");
+			canvas.width = document.body.clientWidth;//获取父级盒子的w
+			canvas.height = document.body.clientHeight;//获取父级盒子的H
+			canvas.background = "#ff0000";
+			var context = canvas.getContext("2d");
+			context.rect(0, 0, canvas.width, canvas.height);
+			context.fillStyle = "#fff";//设置背景颜色
+			context.fill();
+			context.fillStyle = "#000000"
+			var title="asd aass asd asd asd asd v我是文字要实现这个功能就必须要介绍要两行截屏的功能html2canvasad assd "
+			drawText(context,title,220,30,550);
+			context.fillStyle = "#red"
+			drawText(context,title,280,850,550);
+			context.fillStyle = "#FF0000";
+			context.font = "45px bold Courier New";
+			context.fillText("￥19.9", 220, 990);
+			context.fillStyle = "#000000";
+			context.fillText("长按二维码保存图片", 250, 1200);
+			var myImage2 = new Image();
+			myImage2.src = "./logo.jpg";
+			myImage2.crossOrigin = 'Anonymous';
+			myImage2.onload = function () {
+				context.drawImage(myImage2, 50, 50, 130, 130); //(x,y,w,h)
+				var myImage3 = new Image();
+				myImage3.src = "2.jpg";
+				myImage3.crossOrigin = "Anonymous";
+				myImage3.onload = function () {
+					context.drawImage(myImage3, 0, 160, canvas.width, 700);
+					var myImage4 = new Image();
+					myImage4.src = "qrcode.png";
+					myImage4.crossOrigin = "Anonymous";
+					myImage4.onload = function () {
+						context.drawImage(myImage4, 30, 850, 230, 230);
+						var base64 = canvas.toDataURL("image/jpg"); //"image/png" 这里注意一下
+						var img = document.getElementById('avatar');
+						img.setAttribute('src', base64);
+					}
+				}
+
+			}
+		}
+// 字体换行
+		function drawText(context, t, x, y, w) {
+			var chr = t.split("");
+			var temp = "";
+			var row = [];
+			context.font = "30px Arial";
+			context.fillStyle = "black";
+			context.textBaseline = "middle";
+			for (var a = 0; a < chr.length; a++) {
+				if (context.measureText(temp).width < w && context.measureText(temp + (chr[a])).width <= w) {
+					temp += chr[a];
+				} 
+				else {
+					row.push(temp);
+					temp = chr[a];
+				}
+			}
+			row.push(temp);
+			for (var b = 0; b < 2; b++) {
+				var str = row[b];
+				if (b == 1) {
+					str = str.substring(0, str.length - 1) + '...';
+				}
+				context.fillText(str, x, y + (b + 1) * 36);
+			}}
+	</script>
+</body>
+
+</html>
